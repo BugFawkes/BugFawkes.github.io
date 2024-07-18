@@ -175,10 +175,10 @@
         <p>​        最近我在学习Plant Simulation仿真软件，遇到问题网上常常找不到解答。因此在这，我把自己遇到的问题与解决方案列举出来，希望可以帮助到他人。</p>
 <p>​        首先如果对于Plant Simulation没有一点基础，我推荐下b站的up主<a target="_blank" rel="noopener" href="https://space.bilibili.com/253809626"><strong>ス昨夜星辰恰似你タ</strong></a>，他讲解的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1yV411y7J6/?spm_id_from=333.999.0.0">Plant Simulation基础课程</a>对我受益匪浅。这个GitHub上的<a target="_blank" rel="noopener" href="https://github.com/Tridu33/Plant_Simulation/blob/master/ReadMe%E7%94%9F%E4%BA%A7%E7%B3%BB%E7%BB%9F%E4%BB%BF%E7%9C%9FPlantb%E7%AC%94%E8%AE%B0.md/%E7%94%9F%E4%BA%A7%E7%B3%BB%E7%BB%9F%E4%BB%BF%E7%9C%9FPlant.md">仓库</a>也包含了许多自学资料。因为我主要参与了布局与调度的一个项目，具体案例是按照周金平老师的教材《Plant Simulation应用教程》来做的。其中案例比较详细，但随着Plant Simulation软件的更新，里面有些步骤与SimTalk代码需要更改，因此本人萌生了撰写博客的想法。</p>
 <p>​        在周金平老师教材的第3.4章节，建议初学者对照<a target="_blank" rel="noopener" href="https://www.codetd.com/article/3633204">这篇博客</a>与教材一起搭建模型。如果Plant Simulation版本较新（在13.x版本之后），默认method是使用simtalk2.0语法。如果直接使用周金平老师的代码，需要点开一个method以后，点击工具-新语法，这样就允许使用simtalk1.0语法了。GAWizard里配置方法步骤也略有不同。我是16版本，配置方法是如下界面</p>
-<img src="Plant-Simulation学习笔记-1.assets/1.png" alt="1" style="zoom:50% ;float:center" />
+<img src="/2024/07/18/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/1.png" alt="1" style="zoom:50%;">
 
 <p>需要自己新建一个method，在把代码填入，其中的<code>chrom:=individual[1,1]</code>需要改成<code>chrom := .layout_design.QAP.GAWizard.individual[1,1]</code>，也就是添加<code>individual</code>表格的绝对路径，然后选择它。尤其需要注意设置GA控件里任务这一步骤。因为周老师教材里没有这一步骤，当时我跟着做时，reset与run按钮是灰色，一直无法进行优化。后来才找到上文这篇博客，需要在对象-GA控件-任务-添加GAsequence，这样才能正常运行。而且运行GA优化时，需要填写eventcontroller的结束时间，建议时间大于14小时</p>
-<img src="Plant-Simulation学习笔记-1.assets/2.png" alt="2" style="zoom:50%;float:center" />
+<img src="/2024/07/18/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/2.png" alt="2" style="zoom: 50%;">
 
 <p>因为完全仿真一遍的时间是13小时多一点，小于这个时间会出现仿真还没结束就优化了。</p>
 <p>​        这里也把我自己做的模型放出来，供大家学习参考。<a href="QAP.spp">点此下载</a></p>
