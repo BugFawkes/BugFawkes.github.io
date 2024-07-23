@@ -152,6 +152,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Plant-Simulation学习笔记-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/">Plant Simulation学习笔记(2)</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/" class="archive-article-date">
+  	<time datetime="2024-07-23T01:42:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​        在周金平教材布局优化3.6章节多行布置仿真模型，源模型中InitPartsTable方法中的计算作业单位间距离函数写错了</p>
+<img src="/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/image-20240723101220612-17217007461361.png" alt="image-20240723101220612" style="zoom: 50%; pos=center">
+
+<p><code>D_From_To_Chart[j,i]=abs(dx-dy);</code>是错误的，应该更正为<code>D_From_To_Chart[j,i]:=abs(dx+dy);</code>。这样按照[1 2 3 4 5 6 7]序列的HandlingCost应该是597000，按照y_max的适应度优化序列[ 6 7 5 4 1 3 2]，HandlingCost&#x3D;462000。</p>
+<p>​        在周金平教材调度优化的6.3.2章节OBR模型，代码PutA中的obj指代的是buffer对象，buffer里的零件不能通过buffer[i]访问，个人是用obj.contentslist[1,j]进行访问(可以打开buffer控件，选择视图-内容，可以发现它其实是一个仅有1列的队列)，PutA完整代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">var i, j, k, m, curJob:integer</span><br><span class="line">var curStep, curOrder : integer</span><br><span class="line">var Obj, curRes:object</span><br><span class="line">var isFind:boolean</span><br><span class="line">var Name:string</span><br><span class="line"></span><br><span class="line">for i:=1 to numMachines </span><br><span class="line">	Obj:=str_to_obj(sprint(&quot;BF&quot;, i))</span><br><span class="line">	if Obj.NumMU&gt;0  		-- 缓冲区有待加工的工件</span><br><span class="line">		CurRes:=str_to_obj(sprint(&quot;M&quot;, i))		-- 当前机床</span><br><span class="line">		if CurRes.EntranceFree and CurRes.EntranceOpen  -- 当前机床空闲</span><br><span class="line">			isFind:=false</span><br><span class="line">			for k:=2 to ResSeq.XDim </span><br><span class="line">				if ResSeq[k,i]&gt;0 		-- 该工件未排程</span><br><span class="line">					for j:=Obj.contentslist.ydim downto 1 --更改代码</span><br><span class="line">						--if not Obj[j].empty 	-- 缓冲区非空</span><br><span class="line">							Name:=sprint(&quot;J&quot;,ResSeq[k,i])</span><br><span class="line">							if Obj.contentslist[1,j].Name=Name 	-- 找到该工件</span><br><span class="line">								curJob:=j</span><br><span class="line">								j:=0</span><br><span class="line">								isFind:=true</span><br><span class="line">								ResSeq[k,i]:=0</span><br><span class="line">							end</span><br><span class="line">						--end</span><br><span class="line">					next</span><br><span class="line">				end</span><br><span class="line">				if isFind </span><br><span class="line">					k:=ResSeq.XDim+10</span><br><span class="line">				end</span><br><span class="line">			next</span><br><span class="line">			if isFind </span><br><span class="line">				curStep:=obj.contentslist[1,curjob].step</span><br><span class="line">				Name:=obj.contentslist[1,curjob].name</span><br><span class="line">				curOrder:=str_to_num(stromit(Name,1,1))</span><br><span class="line">				CurRes.ProcTime:=POM[1, curOrder][2, curStep] -- 设置加工时间</span><br><span class="line">				numSteps:=numSteps+1</span><br><span class="line">				scheduledOrders[1,numSteps]:=eventController.simTime</span><br><span class="line">				scheduledOrders[2,numSteps]:=scheduledOrders[1,numSteps]+CurRes.ProcTime</span><br><span class="line">				scheduledOrders[3,numSteps]:=CurRes.Name</span><br><span class="line">				scheduledOrders[4,numSteps]:=curOrder</span><br><span class="line">				scheduledOrders[5,numSteps]:=curStep</span><br><span class="line">				obj.contentslist[1,curjob].move(CurRes)</span><br><span class="line">			end</span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">next</span><br></pre></td></tr></table></figure>
+
+<p>当一个新数据来时，输入POM，orders，再运行initorders，createmodel,然后进行GA优化，再仿真。</p>
+<p>仿真模型都放在了<a href="https://bugfawkes.github.io/2024/07/18/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/">Plant Simulation学习笔记(1)</a>中。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Plant-Simulation学习笔记-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

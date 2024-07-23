@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://bugfawkes.github.io">
-  <title>Archives: 2024/7 | Looper的学习小屋</title>
+  <title>Plant Simulation学习笔记(2) | Looper的学习小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Looper的学习小屋">
-<meta property="og:url" content="https://bugfawkes.github.io/archives/2024/07/index.html">
+  <meta name="description" content="​        在周金平教材布局优化3.6章节多行布置仿真模型，源模型中InitPartsTable方法中的计算作业单位间距离函数写错了   D_From_To_Chart[j,i]&#x3D;abs(dx-dy);是错误的，应该更正为D_From_To_Chart[j,i]:&#x3D;abs(dx+dy);。这样按照[1 2 3 4 5 6 7]序列的HandlingCost应该是597000，按照y_max的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Plant Simulation学习笔记(2)">
+<meta property="og:url" content="https://bugfawkes.github.io/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/index.html">
 <meta property="og:site_name" content="Looper的学习小屋">
+<meta property="og:description" content="​        在周金平教材布局优化3.6章节多行布置仿真模型，源模型中InitPartsTable方法中的计算作业单位间距离函数写错了   D_From_To_Chart[j,i]&#x3D;abs(dx-dy);是错误的，应该更正为D_From_To_Chart[j,i]:&#x3D;abs(dx+dy);。这样按照[1 2 3 4 5 6 7]序列的HandlingCost应该是597000，按照y_max的">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bugfawkes.github.io/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/image-20240723101220612-17217007461361.png">
+<meta property="article:published_time" content="2024-07-23T01:42:57.000Z">
+<meta property="article:modified_time" content="2024-07-23T02:29:46.704Z">
 <meta property="article:author" content="Looper">
+<meta property="article:tag" content="软件学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bugfawkes.github.io/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/image-20240723101220612-17217007461361.png">
   
     <link rel="alternative" href="/atom.xml" title="Looper的学习小屋" type="application/atom+xml">
   
@@ -150,36 +157,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Plant-Simulation学习笔记-2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Plant Simulation学习笔记(2)
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/" class="archive-article-date">
+
+        
+        <a href="/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/" class="archive-article-date">
   	<time datetime="2024-07-23T01:42:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-23</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/">Plant Simulation学习笔记(2)</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​        在周金平教材布局优化3.6章节多行布置仿真模型，源模型中InitPartsTable方法中的计算作业单位间距离函数写错了</p>
+<img src="/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/image-20240723101220612-17217007461361.png" alt="image-20240723101220612" style="zoom: 50%; pos=center">
 
-        <div class="article-info info-on-right">
-          
+<p><code>D_From_To_Chart[j,i]=abs(dx-dy);</code>是错误的，应该更正为<code>D_From_To_Chart[j,i]:=abs(dx+dy);</code>。这样按照[1 2 3 4 5 6 7]序列的HandlingCost应该是597000，按照y_max的适应度优化序列[ 6 7 5 4 1 3 2]，HandlingCost&#x3D;462000。</p>
+<p>​        在周金平教材调度优化的6.3.2章节OBR模型，代码PutA中的obj指代的是buffer对象，buffer里的零件不能通过buffer[i]访问，个人是用obj.contentslist[1,j]进行访问(可以打开buffer控件，选择视图-内容，可以发现它其实是一个仅有1列的队列)，PutA完整代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">var i, j, k, m, curJob:integer</span><br><span class="line">var curStep, curOrder : integer</span><br><span class="line">var Obj, curRes:object</span><br><span class="line">var isFind:boolean</span><br><span class="line">var Name:string</span><br><span class="line"></span><br><span class="line">for i:=1 to numMachines </span><br><span class="line">	Obj:=str_to_obj(sprint(&quot;BF&quot;, i))</span><br><span class="line">	if Obj.NumMU&gt;0  		-- 缓冲区有待加工的工件</span><br><span class="line">		CurRes:=str_to_obj(sprint(&quot;M&quot;, i))		-- 当前机床</span><br><span class="line">		if CurRes.EntranceFree and CurRes.EntranceOpen  -- 当前机床空闲</span><br><span class="line">			isFind:=false</span><br><span class="line">			for k:=2 to ResSeq.XDim </span><br><span class="line">				if ResSeq[k,i]&gt;0 		-- 该工件未排程</span><br><span class="line">					for j:=Obj.contentslist.ydim downto 1 --更改代码</span><br><span class="line">						--if not Obj[j].empty 	-- 缓冲区非空</span><br><span class="line">							Name:=sprint(&quot;J&quot;,ResSeq[k,i])</span><br><span class="line">							if Obj.contentslist[1,j].Name=Name 	-- 找到该工件</span><br><span class="line">								curJob:=j</span><br><span class="line">								j:=0</span><br><span class="line">								isFind:=true</span><br><span class="line">								ResSeq[k,i]:=0</span><br><span class="line">							end</span><br><span class="line">						--end</span><br><span class="line">					next</span><br><span class="line">				end</span><br><span class="line">				if isFind </span><br><span class="line">					k:=ResSeq.XDim+10</span><br><span class="line">				end</span><br><span class="line">			next</span><br><span class="line">			if isFind </span><br><span class="line">				curStep:=obj.contentslist[1,curjob].step</span><br><span class="line">				Name:=obj.contentslist[1,curjob].name</span><br><span class="line">				curOrder:=str_to_num(stromit(Name,1,1))</span><br><span class="line">				CurRes.ProcTime:=POM[1, curOrder][2, curStep] -- 设置加工时间</span><br><span class="line">				numSteps:=numSteps+1</span><br><span class="line">				scheduledOrders[1,numSteps]:=eventController.simTime</span><br><span class="line">				scheduledOrders[2,numSteps]:=scheduledOrders[1,numSteps]+CurRes.ProcTime</span><br><span class="line">				scheduledOrders[3,numSteps]:=CurRes.Name</span><br><span class="line">				scheduledOrders[4,numSteps]:=curOrder</span><br><span class="line">				scheduledOrders[5,numSteps]:=curStep</span><br><span class="line">				obj.contentslist[1,curjob].move(CurRes)</span><br><span class="line">			end</span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">next</span><br></pre></td></tr></table></figure>
+
+<p>当一个新数据来时，输入POM，orders，再运行initorders，createmodel,然后进行GA优化，再仿真。</p>
+<p>仿真模型都放在了<a href="https://bugfawkes.github.io/2024/07/18/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/">Plant Simulation学习笔记(1)</a>中。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,111 +226,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://bugfawkes.github.io/2024/07/23/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2024/07/18/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/" class="archive-article-date">
-  	<time datetime="2024-07-18T02:38:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-18</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2024/07/18/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Plant Simulation学习笔记(1)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/07/18/Plant-Simulation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/">Plant Simulation学习笔记(1)</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2024/07/12/test/" class="archive-article-date">
-  	<time datetime="2024-07-12T10:43:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/07/12/test/">test</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2024/07/12/hello-world/" class="archive-article-date">
-  	<time datetime="2024-07-12T08:44:12.552Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/07/12/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -318,8 +348,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
